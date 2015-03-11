@@ -31,9 +31,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+        glview = GLViewImpl::create("Neo Game");
         //螢幕大小,手機是固定無法設定的
-        glview->setFrameSize(854,480);
+        glview->setFrameSize(480,320);
         //glview->setFrameSize(600,600);
         director->setOpenGLView(glview);
     }
@@ -44,23 +44,28 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if (screenSize.height > mediumResource.size.height)
     {
         //銀幕高大於中尺寸的圖,採用大尺寸圖並用大尺寸圖縮放
+         log("Using largeResource");
         searchPaths.push_back(largeResource.directory);
         director->setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
     }else if (screenSize.height > smallResource.size.height)
     {
         //銀幕高大於小尺寸的圖,採用中尺寸圖並用中尺寸圖縮放
+        log("Using mediumResource");
         searchPaths.push_back(mediumResource.directory);
         director->setContentScaleFactor(mediumResource.size.height/designResolutionSize.height); 
     }else
     {
+        log("Using smallResource");
         searchPaths.push_back(smallResource.directory);
         director->setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
     }
     //Director::getInstance()->getOpenGLView()->setDesignResolutionSize(designResolutionSize.width,designResolutionSize.height,ResolutionPolicy::FIXED_HEIGHT);  
    Director::getInstance()->getOpenGLView()->setDesignResolutionSize(designResolutionSize.width,designResolutionSize.height,ResolutionPolicy::SHOW_ALL);  
+
+   searchPaths.push_back("audio");
+   FileUtils::getInstance()->setSearchPaths(searchPaths);
+   
 /*
-    searchPaths.push_back("audio");
-    FileUtils::getInstance()->setSearchPaths(searchPaths);
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BG_MUSIC_01);     
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BG_MUSIC_02);     
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BG_MUSIC_03);     
@@ -71,6 +76,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(BG_MUSIC_03, true);
 */
 ///////////////////////////////////////////////
+   
     // turn on display FPS
     director->setDisplayStats(true);
 

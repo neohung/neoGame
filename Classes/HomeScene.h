@@ -1,6 +1,8 @@
 #ifndef __HOMESCENE_H__
 #define __HOMESCENE_H__
+
 #include "cocos2d.h"
+
 
 using namespace cocos2d;
 
@@ -14,7 +16,7 @@ enum
 #define DESIGN_RESOLUTION_480X320    0
 #define DESIGN_RESOLUTION_1024X768   1
 #define DESIGN_RESOLUTION_2048X1536  2
-#define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_1024x768
+#define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_480X320
 
 typedef struct tagResource
 {
@@ -22,9 +24,9 @@ typedef struct tagResource
     char directory[100]; 
 }Resource;
  
-static Resource smallResource  =   { cocos2d ::Size( 480 , 320 ),   "iphone" };
-static Resource mediumResource =   { cocos2d ::Size( 1024 , 768 ),  "1024x768"   };
-static Resource largeResource  =   { cocos2d ::Size( 2048 , 1536 ), "ipadhd" };
+static Resource smallResource  =   { cocos2d ::Size( 480 , 320 ),   "480x320" };    //iphone
+static Resource mediumResource =   { cocos2d ::Size( 1024 , 768 ),  "1024x768"   };  // ipad
+static Resource largeResource  =   { cocos2d ::Size( 2048 , 1536 ), "2048x1536" };      //ipadhd
  
 #if (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_480X320)
 static cocos2d:: Size designResolutionSize = cocos2d :: Size(480 , 320);
