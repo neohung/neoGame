@@ -22,6 +22,7 @@ enum ActorStates
 class HeroSprite : public Sprite{
 public:
 	HeroSprite(std::string filename);
+	HeroSprite();
 	~HeroSprite();
 	void doMove(Vec2 velocity);
 	float speed;

@@ -1,9 +1,8 @@
 #include "HomeLayer.h"
 #include "SimpleAudioEngine.h"
 
-HomeLayer::HomeLayer(GameLayer* gameLayer)
+HomeLayer::HomeLayer(GameLayer* gameLayer): _gameLayer(gameLayer)
 {
-	_gameLayer = gameLayer;
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	_drawNode = DrawNode::create();  
 	Vec2 shape[] = { Vec2(0,visibleSize.height), Vec2(visibleSize.width,visibleSize.height), Vec2(visibleSize.width,0), Vec2(0,0) };
@@ -22,6 +21,9 @@ HomeLayer::HomeLayer(GameLayer* gameLayer)
 	_preLoadData();
 	_touchArea = Rect(_sp->getPosition().x - _sp->getContentSize().width/2,_sp->getPosition().y - _sp->getContentSize().height/2,_sp->getContentSize().width,_sp->getContentSize().height);
 	_init_touch();
+	//
+
+	//
 }
 
 HomeLayer::~HomeLayer()
@@ -112,4 +114,5 @@ void HomeLayer::startGame()
 		this->setVisible(false);
 	}),NULL);
 	this->runAction(hideMenuAction);
+	_gameLayer->configureGame(1);
 }

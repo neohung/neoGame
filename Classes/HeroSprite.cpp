@@ -1,12 +1,18 @@
 #include "HeroSprite.h"
 
+using namespace cocos2d;
+
 HeroSprite::HeroSprite(std::string filename)
 {
-	if(initWithFile(filename.c_str()))
-	{
-		state = kStateIdle;
-		speed = 2.0f;
-	}
+	//if(initWithSpriteFrameName(filename.c_str()))
+	//{
+	//	state = kStateIdle;
+	//	speed = 2.0f;
+	//}
+}
+
+HeroSprite::HeroSprite()
+{
 }
 
 HeroSprite::~HeroSprite()
