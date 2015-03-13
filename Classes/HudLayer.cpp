@@ -25,11 +25,11 @@ HudLayer::~HudLayer()
 	
 }
 
-void HudLayer::updateControl(HeroSprite* player, float dt)
+Vec2 HudLayer::updateControl(float dt)
 {
-	
-	Vec2 velocity = _joypad->getVelocity();
+	return _joypad->getVelocity();
+	//Vec2 velocity = _joypad->getVelocity();
 	//velocity.x *=  player->speed;
 	//velocity.y *=  player->speed;
-	player->doMove(dt,velocity);
+	//player->doMove(dt,velocity);
 }

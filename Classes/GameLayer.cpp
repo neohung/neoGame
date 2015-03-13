@@ -49,26 +49,46 @@ void GameLayer::_initPlayer()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	HeroSprite* Sprite1 = new HeroSprite("A1_0.png","heros/ActorsPack1.png","heros/ActorsPack1.plist",0);
+	hero = new HERO();
+	HeroSprite* Sprite1 = new HeroSprite("A1_4.png","heros/ActorsPack1.png","heros/ActorsPack1.plist",0);
 	if (!Sprite1){
 		log("fail!");
 		return;
 	}
-	_player = Sprite1;
+	hero->hSprite = Sprite1;
 
 	Sprite1->setScale(2);
 	Sprite1->setPosition(200,100);
 	addChild(Sprite1->spritebatch);
 
 	char str[100] = {0};
-	for(int i = 1; i < 9; i++) 
+	//idle ,0~3: attack, 4~6: walk, 7~8:dead
+	for(int i = 0; i < 4; i++) 
 	{
 		sprintf(str, "A1f_%01d.png", i);
 		Sprite1->addAnimFrames(str);
 	}
+	hero->playerAttackAnimate = Sprite1->createAnimate(0.3f)->clone();
+	hero->playerAttackAnimate->retain();
+	Sprite1->cleanAnimFrames();
+	for(int i = 4; i < 7; i++) 
+	{
+		sprintf(str, "A1f_%01d.png", i);
+		Sprite1->addAnimFrames(str);
+	}
+	hero->playerWalkAnimate = Sprite1->createAnimate(0.3f)->clone();
+	hero->playerWalkAnimate->retain();
+	Sprite1->cleanAnimFrames();
+	for(int i = 7; i < 9; i++) 
+	{
+		sprintf(str, "A1f_%01d.png", i);
+		Sprite1->addAnimFrames(str);
+	}
+	hero->playerDeadAnimate = Sprite1->createAnimate(0.3f)->clone();
+	hero->playerDeadAnimate->retain();
 	// Add Move Limit
-	Sprite1->runAction( RepeatForever::create(Sprite1->createAnimate(0.3f)));
+	//Sprite1->runAction( RepeatForever::create(Sprite1->createAnimate(0.3f)));
+	// Add Move Limit
 	Rect limit1 = Rect(origin.x,origin.y,visibleSize.width,visibleSize.height);
 	Sprite1->addMoveLimits(limit1);
 	Rect limit2 = Rect(origin.x,origin.y+20,visibleSize.width,250);
@@ -95,5 +115,11 @@ void GameLayer::onEnterTransitionDidFinish()
 
 void GameLayer::_gameLogic(float dt)
 {
-	_hudLayer->updateControl(_player,dt);
+	Vec2 velocity = _hudLayer->updateControl(dt);
+	if (velocity.x == 0 && velocity.y == 0){
+
+	}else{
+		//hero->hSprite->runAction(hero->playerWalkAnimate);
+		hero->hSprite->doMove(dt,velocity);
+	}
 }

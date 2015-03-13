@@ -7,6 +7,17 @@
 
 using namespace cocos2d;
 
+typedef struct _HERO
+{
+	HeroSprite* hSprite;
+	Animate * playerAttackAnimate;
+	Animate * playerWalkAnimate;
+	Animate * playerDeadAnimate;
+	Animate * fplayerAttackAnimate;
+	Animate * fplayerWalkAnimate;
+	Animate * fplayerDeadAnimate;
+}HERO;
+
 class GameLayer : public Layer{
 public:
 	GameLayer(HudLayer* hudLayer);
@@ -22,8 +33,12 @@ private:
 	void _initPlayer();
 	void _gameLogic(float dt);
 private:
+	HERO* hero;
 	HudLayer* _hudLayer;
 	HeroSprite* _player;
+	Animate * _playerAttackAnimate;
+	Animate * _playerWalkAnimate;
+	Animate * _playerDeadAnimate;
 };
 
 #endif

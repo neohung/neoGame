@@ -32,6 +32,10 @@ void HeroSprite::addAnimFrames(std::string frameName)
 	SpriteFrame* frame = cache->getSpriteFrameByName(frameName);
 	animFrames->pushBack(frame);
 }
+void HeroSprite::cleanAnimFrames()
+{
+	animFrames->clear();
+}
 Animate* HeroSprite::createAnimate(float playTime)
 {
 	return Animate::create(Animation::createWithSpriteFrames(*animFrames, playTime));

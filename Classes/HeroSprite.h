@@ -29,7 +29,7 @@ public:
 	Animate* createAnimate(float time);
 	void addMoveLimits(Rect limitRect);
 	void clearMoveLimits();
-	
+	void cleanAnimFrames();
 	float speed;
 	ActorStates state;
 	SpriteBatchNode* spritebatch;
