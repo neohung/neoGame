@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "HudLayer.h"
+#include "HeroSprite.h"
 
 using namespace cocos2d;
 
@@ -21,6 +22,8 @@ private:
 	void _initPlayer();
 	void _gameLogic(float dt);
 private:
+	HudLayer* _hudLayer;
+	HeroSprite* _player;
 };
 
 #endif

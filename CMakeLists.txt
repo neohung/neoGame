@@ -122,6 +122,7 @@ Classes/GameLayer.cpp
 #Classes/PopUpLoseLayer.cpp
 Classes/HomeLayer.cpp
 Classes/HudLayer.cpp
+Classes/HeroSprite.cpp
 Classes/NeoJoystick/NeoJoystick.cpp
 ${PLATFORM_SPECIFIC_SRC}
 )
@@ -134,6 +135,7 @@ Classes/GameLayer.h
 #Classes/PopUpLoseLayer.h
 Classes/HomeLayer.h
 Classes/HudLayer.h
+Classes/HeroSprite.h
 Classes/NeoJoystick/NeoJoystick.h
 ${PLATFORM_SPECIFIC_HEADERS}
 )

@@ -12,10 +12,10 @@ HudLayer::HudLayer()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto joypadBG = Sprite::create(JOYPAD_BG);
 	joypadBG->setOpacity(JOYPAD_OPACITY);
-	joypadBG->setScale(JOYPAD_SIZE_SCALE);
+	//joypadBG->setScale(JOYPAD_SIZE_SCALE);
 	auto joypadThumb = Sprite::create(JOYPAD_THUMB);
 	joypadThumb->setOpacity(JOYPAD_OPACITY);
-	joypadThumb->setScale(JOYPAD_SIZE_SCALE);
+	//joypadThumb->setScale(JOYPAD_SIZE_SCALE);
 	_joypad = new NeoJoystick(joypadBG,joypadThumb,Rect(joypadBG->getContentSize().width/2*joypadBG->getScale() + visibleSize.width*0.1f, joypadBG->getContentSize().height/2*joypadBG->getScale() + visibleSize.height*0.1f, joypadBG->getContentSize().width*joypadBG->getScale(), joypadBG->getContentSize().height*joypadBG->getScale()));
 	addChild(_joypad);
 }
@@ -25,13 +25,11 @@ HudLayer::~HudLayer()
 	
 }
 
-void HudLayer::updateControl(HeroSprite* player)
+void HudLayer::updateControl(HeroSprite* player, float dt)
 {
 	
 	Vec2 velocity = _joypad->getVelocity();
-	velocity.x *=  player->speed;
-	velocity.y *=  player->speed;
-	//player->doMove(velocity);
-	player->~HeroSprite();
-
+	//velocity.x *=  player->speed;
+	//velocity.y *=  player->speed;
+	player->doMove(dt,velocity);
 }

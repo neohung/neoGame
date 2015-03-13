@@ -21,14 +21,32 @@ enum ActorStates
 
 class HeroSprite : public Sprite{
 public:
-	HeroSprite(std::string filename);
-	HeroSprite();
+	HeroSprite(std::string frameName, std::string pngFileName, std::string plistName, int zorder);
+	//HeroSprite(std::string frameName,std::string pngName,std::string plistName);
 	~HeroSprite();
-	void doMove(Vec2 velocity);
+	void doMove(float dt,Vec2 velocity);
+	void addAnimFrames(std::string frameName);
+	Animate* createAnimate(float time);
+	void addMoveLimits(Rect limitRect);
+	void clearMoveLimits();
+	
 	float speed;
 	ActorStates state;
+	SpriteBatchNode* spritebatch;
+	Vector<SpriteFrame*>* animFrames;
+	/*
+	static void* operator new (std::size_t size) {
+        void *pHeroSprite = malloc( size );
+        if (pHeroSprite){
+        	return pHeroSprite;
+        }
+        return NULL;
+	}
+	*/
+ 
 private:
 private:
+	 std::vector<cocos2d::Rect>* _moveLimit;
 };
 
 #endif

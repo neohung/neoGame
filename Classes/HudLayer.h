@@ -11,7 +11,7 @@ class HudLayer : public Layer{
 public:
 	HudLayer();
 	~HudLayer();
-	void updateControl(HeroSprite* player);
+	void updateControl(HeroSprite* player, float dt);
 private:
 private:
 	NeoJoystick* _joypad;

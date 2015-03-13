@@ -1,7 +1,7 @@
 #include "GameLayer.h"
 #include "HeroSprite.h"
 
-GameLayer::GameLayer(HudLayer* hudLayer)
+GameLayer::GameLayer(HudLayer* hudLayer): _hudLayer(hudLayer)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	log("visibleSize: %lfx%lf",visibleSize.width,visibleSize.height);
@@ -22,6 +22,7 @@ void GameLayer::configureGame(int gamelevel)
 {
 	_initElements();
 	_initPlayer();
+	runGame();
 }
 
 void GameLayer::_initMap()
@@ -46,30 +47,32 @@ void GameLayer::_initLayer()
 
 void GameLayer::_initPlayer()
 {
-	SpriteBatchNode* spritebatch = SpriteBatchNode::create("heros/ActorsPack1.png");
-	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("heros/ActorsPack1.plist");
-	auto Sprite1 = Sprite::createWithSpriteFrameName("A1f_0.png");
-	Sprite1->setScale(2);
-	//HeroSprite* Sprite1 = new HeroSprite("A1_0.png");
-	//HeroSprite* Sprite1 = new HeroSprite();
-	Sprite1->setPosition(200,100);
-	spritebatch->addChild(Sprite1,10);
-	addChild(spritebatch);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	Vector<SpriteFrame*> animFrames(9);
+	HeroSprite* Sprite1 = new HeroSprite("A1_0.png","heros/ActorsPack1.png","heros/ActorsPack1.plist",0);
+	if (!Sprite1){
+		log("fail!");
+		return;
+	}
+	_player = Sprite1;
+
+	Sprite1->setScale(2);
+	Sprite1->setPosition(200,100);
+	addChild(Sprite1->spritebatch);
 
 	char str[100] = {0};
 	for(int i = 1; i < 9; i++) 
 	{
 		sprintf(str, "A1f_%01d.png", i);
-		SpriteFrame* frame = cache->getSpriteFrameByName( str );
-		animFrames.pushBack(frame);
+		Sprite1->addAnimFrames(str);
 	}
-	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.3f);
-	Sprite1->runAction( RepeatForever::create( Animate::create(animation) ) );
-
-
+	// Add Move Limit
+	Sprite1->runAction( RepeatForever::create(Sprite1->createAnimate(0.3f)));
+	Rect limit1 = Rect(origin.x,origin.y,visibleSize.width,visibleSize.height);
+	Sprite1->addMoveLimits(limit1);
+	Rect limit2 = Rect(origin.x,origin.y+20,visibleSize.width,250);
+	Sprite1->addMoveLimits(limit2);
 }
 
 void GameLayer::update(float dt)
@@ -80,15 +83,17 @@ void GameLayer::update(float dt)
 void GameLayer::runGame()
 {
 	log("GameLayer::runGame()");
+	this->unscheduleUpdate(); 
+	this->scheduleUpdate();
 }
 
 void GameLayer::onEnterTransitionDidFinish()
 {
 	log("GameLayer::onEnterTransitionDidFinish()");
-	runGame();
+	//runGame();
 }
 
 void GameLayer::_gameLogic(float dt)
 {
-	//_hudLayer->updateControl(*_player);
+	_hudLayer->updateControl(_player,dt);
 }
