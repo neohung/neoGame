@@ -20,10 +20,12 @@ private:
 	void _initElements();
 	void _initLayer();
 	void _initPlayer();
+	void _initEnemy();
 	void _gameLogic(float dt);
 private:
 	HudLayer* _hudLayer;
 	HeroSprite* _player;
+	Vector<HeroSprite*>* _enemy;
 };
 
 #endif

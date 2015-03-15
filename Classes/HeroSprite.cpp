@@ -17,9 +17,7 @@ HeroSprite::HeroSprite(std::string frameName, std::string pngFileName, std::stri
 
 		animFrames = new Vector<SpriteFrame*>();
 		spritebatch->addChild(this,zorder);
-		_initAnimation();
 	}
-	
 }
 
 HeroSprite::~HeroSprite()
@@ -61,66 +59,73 @@ void HeroSprite::doMove(float dt,Vec2 velocity)
 	this->runAction(MoveBy::create(dt,velocity*speed));
 }
 
-void HeroSprite::_initAnimation()
+void HeroSprite::initAnimation(std::string heroName)
 {
 	//overload this function if you need
 	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
 	Vector<SpriteFrame*> animFrames;
-	const char hero[] = "Hero11";
+	animationPrefixName = heroName;
+	//animationPrefixName = heroName.c_str();
 	char str[100] = {0};
 	float animTime = 0.2;
 	for(int i = 0; i < 4; i++) 
 	{
-		sprintf(str, "%sf_%01d.png", hero,i);
+		sprintf(str, "%sf_%01d.png", animationPrefixName.c_str(),i);
 		SpriteFrame* frame = cache->getSpriteFrameByName(str);
 		animFrames.pushBack(frame);
 	}
 	auto animation = Animation::createWithSpriteFrames(animFrames, animTime);
-	AnimationCache::getInstance()->addAnimation(animation, "heroAttackF");
+	sprintf(str, "%s_%s", animationPrefixName.c_str(),"AttackF");
+	AnimationCache::getInstance()->addAnimation(animation, str);
 	animFrames.clear();
 	for(int i = 4; i < 7; i++) 
 	{
-		sprintf(str, "%sf_%01d.png", hero,i);
+		sprintf(str, "%sf_%01d.png", animationPrefixName.c_str(),i);
 		SpriteFrame* frame = cache->getSpriteFrameByName(str);
 		animFrames.pushBack(frame);
 	}
 	animation = Animation::createWithSpriteFrames(animFrames, animTime);
-	AnimationCache::getInstance()->addAnimation(animation, "heroWalkF");
+	sprintf(str, "%s_%s", animationPrefixName.c_str(),"WalkF");
+	AnimationCache::getInstance()->addAnimation(animation, str);
 	animFrames.clear();
 	for(int i = 7; i < 9; i++) 
 	{
-		sprintf(str, "%sf_%01d.png", hero,i);
+		sprintf(str, "%sf_%01d.png", animationPrefixName.c_str(),i);
 		SpriteFrame* frame = cache->getSpriteFrameByName(str);
 		animFrames.pushBack(frame);
 	}
 	animation = Animation::createWithSpriteFrames(animFrames, animTime);
-	AnimationCache::getInstance()->addAnimation(animation, "heroDeadF");
+	sprintf(str, "%s_%s", animationPrefixName.c_str(),"DeadF");
+	AnimationCache::getInstance()->addAnimation(animation, str);
 
 	animFrames.clear();
 	for(int i = 0; i < 4; i++) 
 	{
-		sprintf(str, "%s_%01d.png", hero,i);
+		sprintf(str, "%s_%01d.png", animationPrefixName.c_str(),i);
 		SpriteFrame* frame = cache->getSpriteFrameByName(str);
 		animFrames.pushBack(frame);
 	}
 	animation = Animation::createWithSpriteFrames(animFrames,animTime);
-	AnimationCache::getInstance()->addAnimation(animation, "heroAttackB");
+	sprintf(str, "%s_%s", animationPrefixName.c_str(),"AttackB");
+	AnimationCache::getInstance()->addAnimation(animation, str);
 	animFrames.clear();
 	for(int i = 4; i < 7; i++) 
 	{
-		sprintf(str, "%s_%01d.png", hero,i);
+		sprintf(str, "%s_%01d.png", animationPrefixName.c_str(),i);
 		SpriteFrame* frame = cache->getSpriteFrameByName(str);
 		animFrames.pushBack(frame);
 	}
 	animation = Animation::createWithSpriteFrames(animFrames, animTime);
-	AnimationCache::getInstance()->addAnimation(animation, "heroWalkB");
+	sprintf(str, "%s_%s", animationPrefixName.c_str(),"WalkB");
+	AnimationCache::getInstance()->addAnimation(animation, str);
 	animFrames.clear();
 	for(int i = 7; i < 9; i++) 
 	{
-		sprintf(str, "%s_%01d.png", hero,i);
+		sprintf(str, "%s_%01d.png", animationPrefixName.c_str(),i);
 		SpriteFrame* frame = cache->getSpriteFrameByName(str);
 		animFrames.pushBack(frame);
 	}
 	animation = Animation::createWithSpriteFrames(animFrames, animTime);
-	AnimationCache::getInstance()->addAnimation(animation, "heroDeadB");
+	sprintf(str, "%s_%s", animationPrefixName.c_str(),"DeadB");
+	AnimationCache::getInstance()->addAnimation(animation, str);
 }
