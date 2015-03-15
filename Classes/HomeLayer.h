@@ -18,6 +18,7 @@ public:
 	virtual bool onTouchBegan(Touch* touch, Event* event);
 	virtual void onTouchEnded(Touch* touch, Event* event);
 	virtual void onTouchMoved(Touch* touch, Event* event);
+	void onEnterTransitionDidFinish();
 	void showMenu(float dt);
 	void startGame();
 	void onButtonPress(Ref* pSender);

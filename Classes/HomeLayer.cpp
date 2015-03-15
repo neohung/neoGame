@@ -116,3 +116,9 @@ void HomeLayer::startGame()
 	this->runAction(hideMenuAction);
 	_gameLayer->configureGame(1);
 }
+
+void HomeLayer::onEnterTransitionDidFinish()
+{
+	log("HomeLayer::onEnterTransitionDidFinish()");
+	startGame();
+}
