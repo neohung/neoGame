@@ -2,14 +2,14 @@
 <plist>
 <player_name>
 <key>people1</key> 
-<string>Lv8 Jerry</string>
+<string>Lv1 Neo</string>
 <key>people2</key> 
 <string>Lv10 Tom</string>
 </player_name>
 <player_hp>
 <key>people1</key> 
-<string>999</string>
+<float>0.8</float>
 <key>people2</key> 
-<string>100</string>
+<float>1.0</float>
 </player_hp>
 </plist>

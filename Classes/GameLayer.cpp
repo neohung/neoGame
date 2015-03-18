@@ -106,6 +106,7 @@ void GameLayer::onEnterTransitionDidFinish()
 
 void GameLayer::_gameLogic(float dt)
 {
+	Map<float, HeroSprite*> zorder_map;  
 	// update enemy
 	for(int i;i<_enemy->size();i++)
 	{
@@ -128,6 +129,7 @@ void GameLayer::_gameLogic(float dt)
 		}
 		//log("%lf,%lf",signx*vx,signy*vy);
 		e->doMove(dt,Vec2(signx*vx,signy*vy));
+		//e->setLocalZOrder(20000); 
 	}
 
 	//auto a = hero->hSprite->getActionByTag(111);
@@ -161,6 +163,33 @@ void GameLayer::_gameLogic(float dt)
 			_player->runAction(animate);
 			animate->setTag(111);
 		}
-		_player->doMove(dt,velocity);
+		_player->doMove(dt,velocity); 
 	}
+	//zorder_map.clear();
+		//_player->setLocalZOrder(-20000);
+	//reorder
+	zorder_map.insert(_player->getPositionY(),_player);
+	for(int i;i<_enemy->size();i++)
+	{
+		HeroSprite* e = _enemy->at(i);
+		zorder_map.insert(e->getPositionY(),e);
+	}
+
+	std::vector<float> mapKeyVec;
+	mapKeyVec = zorder_map.keys();
+	int i =0;
+	for(auto key : mapKeyVec)
+	{
+		i++;
+		auto sp = zorder_map.at(key);
+    	//auto parent = sp->getParent();
+    	//parent->reorderChild(sp->spritebatch,i);
+		this->reorderChild(sp->spritebatch,i);
+    	//sp->getParent()->reorderChild(sp,i);
+    	//log("%d->Y:%lf",sp->spritebatch->getLocalZOrder(),sp->getPositionY());
+	}
+	//log("------");
+	zorder_map.clear();
+	//_player->spritebatch->setLocalZOrder(1000);
+	//log("y=%lf & Z=%d",_player->getPositionY(), _player->spritebatch->getLocalZOrder());
 }

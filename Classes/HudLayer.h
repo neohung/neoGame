@@ -7,6 +7,16 @@
 
 using namespace cocos2d;
 
+class State : public Node{
+public:
+	static State* createHero();
+	void setBlood(float value);
+	void setBloodSprite(Sprite* blood_sp)  { m_pBloodSprite = blood_sp;}
+private:
+private:
+		Sprite* m_pBloodSprite;
+};
+
 class HudLayer : public Layer{
 public:
 	HudLayer();

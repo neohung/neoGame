@@ -111,6 +111,7 @@ include_directories(
 /usr/include/GLFW
 ${COCOS2D_ROOT}/cocos
 ${COCOS2D_ROOT}/cocos/audio/include
+${COCOS2D_ROOT}/external
 Classes
 )
 
